@@ -11,7 +11,7 @@
       text-align: center;
       padding: 2em;
     }
-    .screen {
+    .question, .result, #start-screen {
       display: none;
     }
     .active {
@@ -28,92 +28,81 @@
       cursor: pointer;
     }
     .result {
-      font-size: 1.5em;
+      font-size: 1.3em;
       margin-top: 2em;
     }
-    .share-buttons a {
+    a.button-link {
       display: inline-block;
-      margin: 10px;
-      padding: 0.5em 1em;
-      background-color: #1DA1F2;
+      margin-top: 1.5em;
+      background-color: #f08080;
       color: white;
-      border-radius: 5px;
+      padding: 0.8em 1.5em;
+      border-radius: 8px;
       text-decoration: none;
-      font-size: 0.9em;
-    }
-    .share-buttons a:hover {
-      opacity: 0.9;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <h1>京女生診断！あなたにぴったりの部活は？</h1>
 
-  <!-- Start Screen -->
-  <div id="start-screen" class="screen active">
-    <p>簡単な質問に答えるだけで、あなたにぴったりの部活がわかるよ！</p>
-    <button onclick="startQuiz()">診断スタート！</button>
+  <div id="start-screen" class="active">
+    <p>あなたにぴったりの部活を診断しよう♪</p>
+    <button onclick="startGame()">はじめる</button>
   </div>
 
-  <!-- Questions -->
   <div id="question-container">
-    <div class="screen question">
+    <div class="question">
       <p>Q1. 放課後はどう過ごしたい？</p>
       <button onclick="nextQuestion()">おしゃべりしながらゆるっと活動したい</button>
       <button onclick="nextQuestion()">ひとりで黙々と打ち込める時間がほしい</button>
       <button onclick="nextQuestion()">みんなで目標に向かってがんばりたい</button>
     </div>
 
-    <div class="screen question">
+    <div class="question">
       <p>Q2. 興味があるものは？</p>
       <button onclick="nextQuestion()">音楽</button>
       <button onclick="nextQuestion()">楽しいこと</button>
       <button onclick="nextQuestion()">ちょっと人と違うこと</button>
     </div>
 
-    <div class="screen question">
+    <div class="question">
       <p>Q3. どんな雰囲気の部活がいい？</p>
       <button onclick="nextQuestion()">優しい先輩がいる部活</button>
       <button onclick="nextQuestion()">初心者歓迎の部活</button>
       <button onclick="nextQuestion()">自分のペースで続けられる部活</button>
     </div>
 
-    <div class="screen question">
+    <div class="question">
       <p>Q4. 音楽経験はある？</p>
-      <button onclick="showResult('yes')">ある！</button>
-      <button onclick="showResult('no')">ないけど興味ある！</button>
+      <button onclick="showResult(true)">ある！</button>
+      <button onclick="showResult(false)">ない！</button>
     </div>
   </div>
 
-  <!-- Result -->
-<div id="result" class="result">
-  <p>＼あなたにぴったりの部活は…／</p>
-  <h2 id="club-name">🎶 マンドリンオーケストラ部！ 🎶</h2>
-  <p id="club-message">初心者も大歓迎！あたたかい仲間と一緒に音楽を楽しもう♪</p>
-
-  <!-- 🎯 応募フォームリンク -->
-  <p style="margin-top: 2em;">
-    🎵 <strong>興味がある人はこちらから楽器体験に応募しよう！</strong><br>
-    <a href="https://docs.google.com/forms/d/1Kgp0YwwheMONJPUA0qfHBguXWYVfGkEaKyF_hlECfoQ/viewform?edit_requested=true" 
-       target="_blank"
-       style="display: inline-block; margin-top: 1em; background-color: #f08080; color: white; padding: 0.8em 1.5em; border-radius: 8px; text-decoration: none;">
-      🎹 楽器体験フォームはこちら
-    </a>
-  </p>
-</div>
+  <div id="result" class="result">
+    <p>＼あなたにぴったりの部活は…／</p>
+    <h2>🎶 マンドリンオーケストラ部！ 🎶</h2>
+    <p id="music-message"></p>
+    
+    <p style="margin-top: 2em;">
+      🎵 <strong>興味がある人はこちらから楽器体験に応募しよう！</strong><br>
+      <a href="https://docs.google.com/forms/d/1Kgp0YwwheMONJPUA0qfHBguXWYVfGkEaKyF_hlECfoQ/viewform?edit_requested=true"
+         target="_blank"
+         class="button-link">🎹 楽器体験フォームはこちら</a>
+    </p>
+  </div>
 
   <script>
     let current = 0;
-    let musicExperience = "";
     const questions = document.querySelectorAll('.question');
     const startScreen = document.getElementById('start-screen');
-    const result = document.getElementById('result');
-    const extraMessage = document.getElementById('extra-message');
-    const twitterShare = document.getElementById('twitter-share');
+    const resultScreen = document.getElementById('result');
+    const musicMessage = document.getElementById('music-message');
 
-    function startQuiz() {
+    function startGame() {
       startScreen.classList.remove('active');
-      questions[0].classList.add('active');
+      questions[current].classList.add('active');
     }
 
     function nextQuestion() {
@@ -124,23 +113,15 @@
       }
     }
 
-    function showResult(answer = "") {
-      if (answer) musicExperience = answer;
-
+    function showResult(hasExperience) {
       questions[current].classList.remove('active');
-      result.classList.add('active');
+      resultScreen.classList.add('active');
 
-      let message = "";
-      if (musicExperience === "yes") {
-        message = "音楽経験があるあなたはさらに楽しめます！大学で新しいことに挑戦してみませんか？新しい音楽仲間と一緒に奏でよう♪";
+      if (hasExperience) {
+        musicMessage.textContent = "音楽経験があるあなたはさらに楽しめます！大学で新しいことに挑戦してみませんか？新しい音楽仲間と一緒に奏でよう♪";
       } else {
-        message = "音楽経験がなくても、安心して上達できるマンドリンオーケストラ部がおすすめ！";
+        musicMessage.textContent = "音楽経験がなくても、安心して上達できるマンドリンオーケストラ部がおすすめ！";
       }
-      extraMessage.textContent = message;
-
-      // Twitterシェア用リンク生成
-      const shareText = encodeURIComponent("＼診断結果🎶／\nあなたにぴったりの部活は…マンドリンオーケストラ部！\n" + message + "\n#京女生診断");
-      twitterShare.href = `https://twitter.com/intent/tweet?text=${shareText}`;
     }
   </script>
 </body>
