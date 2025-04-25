@@ -31,15 +31,12 @@
       font-size: 1.3em;
       margin-top: 2em;
     }
-    a.button-link {
-      display: inline-block;
-      margin-top: 1.5em;
-      background-color: #f08080;
-      color: white;
-      padding: 0.8em 1.5em;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 800px;
+      border: none;
+      margin-top: 2em;
     }
   </style>
 </head>
@@ -84,13 +81,12 @@
     <p>＼あなたにぴったりの部活は…／</p>
     <h2>🎶 マンドリンオーケストラ部！ 🎶</h2>
     <p id="music-message"></p>
-    
-    <p style="margin-top: 2em;">
-      🎵 <strong>興味がある人はこちらから楽器体験に応募しよう！</strong><br>
-      <a href="https://docs.google.com/forms/d/1Kgp0YwwheMONJPUA0qfHBguXWYVfGkEaKyF_hlECfoQ/viewform?edit_requested=true"
-         target="_blank"
-         class="button-link">🎹 楽器体験フォームはこちら</a>
-    </p>
+
+    <div id="form-container">
+      <p style="margin-top: 2em;"><strong>👇 興味をもった人は、ぜひ体験申し込みフォームへ！</strong></p>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfYyIKb_zYHj6iYBKWZDJG7dfdRh8ZVfJ29aA6u2EORdELRiw/viewform?embedded=true"
+              title="楽器体験申し込みフォーム">読み込んでいます…</iframe>
+    </div>
   </div>
 
   <script>
