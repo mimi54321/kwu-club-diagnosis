@@ -86,14 +86,21 @@
   </div>
 
   <!-- Result -->
-  <div id="result" class="screen result">
-    <p>＼あなたにぴったりの部活は…／</p>
-    <h2>🎶 マンドリンオーケストラ部！ 🎶</h2>
-    <p id="extra-message"></p>
-    <div class="share-buttons">
-      <a id="twitter-share" href="#" target="_blank">Twitterでシェアする</a>
-    </div>
-  </div>
+<div id="result" class="result">
+  <p>＼あなたにぴったりの部活は…／</p>
+  <h2 id="club-name">🎶 マンドリンオーケストラ部！ 🎶</h2>
+  <p id="club-message">初心者も大歓迎！あたたかい仲間と一緒に音楽を楽しもう♪</p>
+
+  <!-- 🎯 応募フォームリンク -->
+  <p style="margin-top: 2em;">
+    🎵 <strong>興味がある人はこちらから楽器体験に応募しよう！</strong><br>
+    <a href="https://docs.google.com/forms/d/1Kgp0YwwheMONJPUA0qfHBguXWYVfGkEaKyF_hlECfoQ/viewform?edit_requested=true" 
+       target="_blank"
+       style="display: inline-block; margin-top: 1em; background-color: #f08080; color: white; padding: 0.8em 1.5em; border-radius: 8px; text-decoration: none;">
+      🎹 楽器体験フォームはこちら
+    </a>
+  </p>
+</div>
 
   <script>
     let current = 0;
